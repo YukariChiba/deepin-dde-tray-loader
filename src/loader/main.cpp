@@ -54,20 +54,6 @@ static QString pluginDisplayName;
 
 int main(int argc, char *argv[], char *envp[])
 {
-#ifndef QT_DEBUG
-    // 设置信号处理函数
-    struct sigaction sa;
-    sa.sa_handler = sig_crash;
-    sigemptyset(&sa.sa_mask);
-    // 在处理完信号后恢复默认信号处理
-    sa.sa_flags = SA_RESETHAND;
-
-    sigaction(SIGSEGV, &sa, nullptr);
-    sigaction(SIGILL, &sa, nullptr);
-    sigaction(SIGABRT, &sa, nullptr);
-    sigaction(SIGFPE, &sa, nullptr);
-#endif
-
     DGuiApplicationHelper::setAttribute(DGuiApplicationHelper::UseInactiveColorGroup, false);
     Dtk::Widget::DApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
     init_setproctitle(argv, envp);
